@@ -1,0 +1,14 @@
+{
+    "name": "damir/livtours",
+    "description": "main composer settings",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Damir Dautović",
+            "email": "damirdautovic88@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "vimeo/psalm": "^5.26"
+    }
+}
