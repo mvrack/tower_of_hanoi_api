@@ -1,15 +1,21 @@
 <?php
 
-class TowerOfHanoi {
-    private $towers;
-    private $diskCount;
+interface TowerOfHanoiInterface {
+    public function getState(): array;
+    public function move(int $from, int $to): void;
+}
 
-    public function __construct($diskCount = 3) {
+class TowerOfHanoi implements TowerOfHanoiInterface {
+    /** @var array<int, array<int, int>> */
+    private array $towers;
+    private int $diskCount;
+
+    public function __construct(int $diskCount = 3) {
         $this->diskCount = $diskCount;
         $this->initializeTowers();
     }
 
-    private function initializeTowers() {
+    private function initializeTowers(): void {
         $this->towers = [
             1 => range($this->diskCount, 1),
             2 => [],
@@ -17,7 +23,10 @@ class TowerOfHanoi {
         ];
     }
 
-    public function getState() {
+    /**
+     * @return array{towers: array<int, array<int, int>>, moves: int, status: string}
+     */
+    public function getState(): array {
         return [
             'towers' => $this->towers,
             'moves' => $this->calculateMoves(),
@@ -25,16 +34,23 @@ class TowerOfHanoi {
         ];
     }
 
-    public function move($from, $to) {
+    /**
+     * @param int $from
+     * @param int $to
+     * @throws Exception
+     */
+    public function move(int $from, int $to): void {
         if (!$this->isValidMove($from, $to)) {
             throw new Exception("Invalid move");
         }
 
         $disk = array_pop($this->towers[$from]);
-        array_push($this->towers[$to], $disk);
+        if ($disk !== null) {
+            array_push($this->towers[$to], $disk);
+        }
     }
 
-    private function isValidMove($from, $to) {
+    private function isValidMove(int $from, int $to): bool {
         if (!isset($this->towers[$from]) || !isset($this->towers[$to])) {
             return false;
         }
@@ -50,11 +66,11 @@ class TowerOfHanoi {
         return true;
     }
 
-    private function calculateMoves() {
+    private function calculateMoves(): int {
         return pow(2, $this->diskCount) - 1;
     }
 
-    private function getGameStatus() {
+    private function getGameStatus(): string {
         return (count($this->towers[3]) == $this->diskCount) ? 'completed' : 'in_progress';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'TowerOfHanoi.php';
+require_once 'tower_of_hanoi.php';
 
 session_start();
 
