@@ -10,5 +10,9 @@
     ],
     "require-dev": {
         "vimeo/psalm": "^5.26"
+    },
+    "scripts": {
+        "psalm": "psalm"
     }
+
 }
