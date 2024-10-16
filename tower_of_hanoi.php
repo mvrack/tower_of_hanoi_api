@@ -32,7 +32,6 @@ class TowerOfHanoi implements TowerOfHanoiInterface {
         return [
             'towers' => $this->towers,
             'moves_made' => $this->movesMade,
-            'min_moves' => $this->calculateMinMoves(),
             'status' => $this->getGameStatus()
         ];
     }
